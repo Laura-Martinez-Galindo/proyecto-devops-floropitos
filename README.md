@@ -36,6 +36,7 @@ python application.py
 |---|---|---|---|
 | GET | `/health` | No | Health check para Beanstalk |
 | POST | `/blacklists` | Bearer | Agrega un email a la lista negra global |
+| GET | `/blacklists/<string:email>` | Bearer | Consulta si un email está en la lista negra global |
 
 ### POST /blacklists
 
@@ -48,6 +49,32 @@ python application.py
 ```
 
 Respuestas: `201` creado, `400` datos invalidos, `401` sin token o token invalido, `409` el email ya estaba en la lista.
+
+### GET /blacklists/<string:email>
+
+Header: `Authorization: Bearer <token>`
+
+Respuesta si está en la lista (`200 OK`):
+```json
+{
+  "is_blocked": true,
+  "blocked_reason": "Solicito no recibir correos"
+}
+```
+
+Respuesta si no está en la lista (`200 OK`):
+```json
+{
+  "is_blocked": false,
+  "blocked_reason": null
+}
+```
+
+## Colección Postman
+
+En la carpeta `postman/` se encuentran la colección y el environment listos para importar:
+* `blacklists_collection.json`: Casos de prueba para todos los endpoints (éxitos, 400, 401, 409).
+* `blacklists_environment.json`: Variables `baseUrl` y `bearerToken`.
 
 ## Despliegue
 

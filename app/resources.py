@@ -59,7 +59,17 @@ class BlacklistListResource(Resource):
         return {"message": "El email fue agregado a la lista negra global."}, 201
 
 
+class BlacklistDetailResource(Resource):
+    @jwt_required()
+    def get(self, email):
+        clean_email = email.strip().lower()
+        entry = BlacklistEntry.query.filter_by(email=clean_email).first()
+        if entry:
+            return {"is_blocked": True, "blocked_reason": entry.blocked_reason}, 200
+        return {"is_blocked": False, "blocked_reason": None}, 200
+
+
 def register_routes(api):
     api.add_resource(HealthResource, "/health")
     api.add_resource(BlacklistListResource, "/blacklists")
-    # GET /blacklists/<string:email> se registra aqui cuando esté
+    api.add_resource(BlacklistDetailResource, "/blacklists/<string:email>")

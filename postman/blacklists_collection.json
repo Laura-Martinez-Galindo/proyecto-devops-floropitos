@@ -1,0 +1,330 @@
+{
+  "info": {
+    "_postman_id": "4581c7f2-a270-4965-8b2b-0db9bf7bce31",
+    "name": "DevOps - GET Endpoints - Laura",
+    "description": "Casos de prueba para el endpoint GET /blacklists/<email> y GET /health desarrollados por Laura.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Health Check (GET /health)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "health"
+          ]
+        },
+        "description": "Verifica disponibilidad del microservicio en AWS Beanstalk."
+      },
+      "response": [
+        {
+          "name": "200 OK - Health Check",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\"status\": \"ok\"}"
+        }
+      ]
+    },
+    {
+      "name": "2. Consultar Email - Existe (200 OK - True)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{bearerToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/blacklists/usuario.bloqueado@ejemplo.com",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "blacklists",
+            "usuario.bloqueado@ejemplo.com"
+          ]
+        },
+        "description": "Caso exitoso (Happy path): consulta un email que sí está bloqueado en la base de datos."
+      },
+      "response": [
+        {
+          "name": "200 OK - Email Bloqueado",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/blacklists/usuario.bloqueado@ejemplo.com",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "blacklists",
+                "usuario.bloqueado@ejemplo.com"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\"is_blocked\": true, \"blocked_reason\": \"Cliente solicito no recibir correos promocionales\"}"
+        }
+      ]
+    },
+    {
+      "name": "3. Consultar Email - No Existe (200 OK - False)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{bearerToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/blacklists/usuario.limpio@ejemplo.com",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "blacklists",
+            "usuario.limpio@ejemplo.com"
+          ]
+        },
+        "description": "Caso exitoso: consulta un email que no está en la lista negra."
+      },
+      "response": [
+        {
+          "name": "200 OK - Email No Bloqueado",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/blacklists/usuario.limpio@ejemplo.com",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "blacklists",
+                "usuario.limpio@ejemplo.com"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\"is_blocked\": false, \"blocked_reason\": null}"
+        }
+      ]
+    },
+    {
+      "name": "4. Consultar Email - Caso Borde Mayúsculas (200 OK - True)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{bearerToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/blacklists/USUARIO.BLOQUEADO@EJEMPLO.COM",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "blacklists",
+            "USUARIO.BLOQUEADO@EJEMPLO.COM"
+          ]
+        },
+        "description": "Caso de borde (Edge case): valida que las búsquedas sean case-insensitive normalizando a minúsculas."
+      },
+      "response": [
+        {
+          "name": "200 OK - Normalización Mayúsculas",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/blacklists/USUARIO.BLOQUEADO@EJEMPLO.COM",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "blacklists",
+                "USUARIO.BLOQUEADO@EJEMPLO.COM"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\"is_blocked\": true, \"blocked_reason\": \"Cliente solicito no recibir correos promocionales\"}"
+        }
+      ]
+    },
+    {
+      "name": "5. Consultar Email - Sin Token (401 Unauthorized)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/blacklists/usuario.bloqueado@ejemplo.com",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "blacklists",
+            "usuario.bloqueado@ejemplo.com"
+          ]
+        },
+        "description": "Caso de seguridad negativo: petición sin encabezado Authorization."
+      },
+      "response": [
+        {
+          "name": "401 Unauthorized - Token Ausente",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/blacklists/usuario.bloqueado@ejemplo.com",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "blacklists",
+                "usuario.bloqueado@ejemplo.com"
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\"message\": \"Falta el token de autorizacion.\"}"
+        }
+      ]
+    },
+    {
+      "name": "6. Consultar Email - Token Inválido (401 Unauthorized)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "token_invalido_12345",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/blacklists/usuario.bloqueado@ejemplo.com",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "blacklists",
+            "usuario.bloqueado@ejemplo.com"
+          ]
+        },
+        "description": "Caso de seguridad negativo: petición con token malformado o firma incorrecta."
+      },
+      "response": [
+        {
+          "name": "401 Unauthorized - Token Inválido",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/blacklists/usuario.bloqueado@ejemplo.com",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "blacklists",
+                "usuario.bloqueado@ejemplo.com"
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\"message\": \"Token invalido.\"}"
+        }
+      ]
+    }
+  ]
+}
