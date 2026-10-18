@@ -460,7 +460,7 @@
       "_postman_id": "d08f25c5-c95b-45d1-937c-91be8e20d01d"
     },
     {
-      "name": "Consultar Email - Existe 200 OK (True)",
+      "name": "Consultar Email - OK 200",
       "request": {
         "auth": {
           "type": "bearer",
@@ -517,7 +517,7 @@
       ]
     },
     {
-      "name": "Consultar Email - No Existe 200 OK (False)",
+      "name": "Consultar Email - No Existe 200",
       "request": {
         "auth": {
           "type": "bearer",
@@ -574,7 +574,7 @@
       ]
     },
     {
-      "name": "Consultar Email - Caso Borde Mayúsculas (200 OK)",
+      "name": "Consultar Email - Mayusculas 200",
       "request": {
         "auth": {
           "type": "bearer",
@@ -631,7 +631,7 @@
       ]
     },
     {
-      "name": "Consultar Email - Sin Token (401 Unauthorized)",
+      "name": "Consultar Email - Sin Token 401",
       "request": {
         "auth": {
           "type": "noauth"
@@ -681,7 +681,7 @@
       ]
     },
     {
-      "name": "Consultar Email - Token Inválido (401 Unauthorized)",
+      "name": "Consultar Email - Token Invalido 401",
       "request": {
         "auth": {
           "type": "bearer",
