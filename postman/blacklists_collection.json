@@ -1,65 +1,473 @@
 {
   "info": {
-    "_postman_id": "4581c7f2-a270-4965-8b2b-0db9bf7bce31",
-    "name": "DevOps - GET Endpoints - Laura",
-    "description": "Casos de prueba para el endpoint GET /blacklists/<email> y GET /health desarrollados por Laura.",
+    "_postman_id": "99110cc3-0ac0-4a68-9db8-9803129a880a",
+    "name": "Blacklist API - Floropitos",
+    "description": "API REST para gestión centralizada de lista negra global de emails. Desarrollado por el equipo Floropitos para la Entrega 1 de DevOps (MISO - UniAndes).",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
   },
   "item": [
     {
-      "name": "1. Health Check (GET /health)",
+      "name": "Health",
+      "id": "eb17c24d-d36b-4b6c-9035-9c60e9b816f6",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/health",
-          "host": [
-            "{{baseUrl}}"
-          ],
+        "url": "{{base_url}}/health",
+        "description": "<p>Corrobora que el codigo esta corriendo y fue desplegado. Debe dar <code>200</code> con <code>{\"status\": \"ok\"}</code>.</p>\n",
+        "auth": {
+          "type": "bearer",
+          "bearer": {
+            "token": "{{token}}"
+          },
+          "isInherited": true,
+          "source": {
+            "_postman_id": "99110cc3-0ac0-4a68-9db8-9803129a880a",
+            "id": "99110cc3-0ac0-4a68-9db8-9803129a880a",
+            "name": "Blacklist API",
+            "type": "collection"
+          }
+        },
+        "urlObject": {
           "path": [
             "health"
-          ]
-        },
-        "description": "Verifica disponibilidad del microservicio en AWS Beanstalk."
+          ],
+          "host": [
+            "{{base_url}}"
+          ],
+          "query": [],
+          "variable": []
+        }
       },
       "response": [
         {
-          "name": "200 OK - Health Check",
+          "id": "ac2d6d2f-c156-429e-b02b-3645d8bcc5ff",
+          "name": "Save as Example",
           "originalRequest": {
             "method": "GET",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/health",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "health"
-              ]
-            }
+            "url": "{{base_url}}/health"
           },
           "status": "OK",
           "code": 200,
-          "_postman_previewlanguage": "json",
+          "_postman_previewlanguage": null,
           "header": [
+            {
+              "key": "Server",
+              "value": "Werkzeug/3.1.9 Python/3.11.9"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 18 Oct 2026 01:14:40 GMT"
+            },
             {
               "key": "Content-Type",
               "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "23"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
             }
           ],
-          "body": "{\"status\": \"ok\"}"
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n    \"status\": \"ok\"\n}"
         }
-      ]
+      ],
+      "_postman_id": "eb17c24d-d36b-4b6c-9035-9c60e9b816f6"
     },
     {
-      "name": "2. Consultar Email - Existe (200 OK - True)",
+      "name": "Agregar Email - OK 201",
+      "id": "d5b67cd8-2605-4fc7-8ccc-a9d1ee1d00c6",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"clientel10891@ejemplo.com\",\r\n  \"app_uuid\": \"3f2b8c1e-5a4d-4e8b-9c1a-7d6e5f4a3b2c\",\r\n  \"blocked_reason\": \"Solicito no recibir correos\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{base_url}}/blacklists",
+        "description": "<p>StartFragment Metodo <strong>POST</strong>, URL <code>{{base_url}}/blacklists</code>. En Body -&gt; Raw, poner JSON Yy usar: {<br />\"email\": \"<a href=\"https://mailto:cliente@ejemplo.com\">cliente@ejemplo.com</a>\",<br />\"app_uuid\": \"3f2b8c1e-5a4d-4e8b-9c1a-7d6e5f4a3b2c\",<br />\"blocked_reason\": \"Solicito no recibir correos\"<br />}<br />StartFragment</p>\n<p>Send. Debe dar <code>201</code>.  </p>\n<p>Codigos de respuesta: \"El email fue agregado a la lista negra global.\"</p>\n<p>Send otra vez: ahora debe dar <code>409</code>.<br />EndFragment</p>\n",
+        "auth": {
+          "type": "bearer",
+          "bearer": {
+            "token": "{{token}}"
+          },
+          "isInherited": true,
+          "source": {
+            "_postman_id": "99110cc3-0ac0-4a68-9db8-9803129a880a",
+            "id": "99110cc3-0ac0-4a68-9db8-9803129a880a",
+            "name": "Blacklist API",
+            "type": "collection"
+          }
+        },
+        "urlObject": {
+          "path": [
+            "blacklists"
+          ],
+          "host": [
+            "{{base_url}}"
+          ],
+          "query": [],
+          "variable": []
+        }
+      },
+      "response": [
+        {
+          "id": "29a8d0a0-e271-46e0-a1a4-4e612e1df608",
+          "name": "Save as Example",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"clientel10891@ejemplo.com\",\r\n  \"app_uuid\": \"3f2b8c1e-5a4d-4e8b-9c1a-7d6e5f4a3b2c\",\r\n  \"blocked_reason\": \"Solicito no recibir correos\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/blacklists"
+          },
+          "status": "CREATED",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "Werkzeug/3.1.9 Python/3.11.9"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 18 Oct 2026 01:14:54 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "68"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n    \"message\": \"El email fue agregado a la lista negra global.\"\n}"
+        }
+      ],
+      "_postman_id": "d5b67cd8-2605-4fc7-8ccc-a9d1ee1d00c6"
+    },
+    {
+      "name": "Email Duplicado - 209",
+      "id": "5d70a57e-2a6b-4f0a-900b-7c396a0dad4a",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"clientel10891@ejemplo.com\",\r\n  \"app_uuid\": \"3f2b8c1e-5a4d-4e8b-9c1a-7d6e5f4a3b2c\",\r\n  \"blocked_reason\": \"Solicito no recibir correos\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{base_url}}/blacklists",
+        "description": "<p>Caso especifico en el que el correo ya esté registrado.<br />Mismo body pero con un email que ya se halla usado.</p>\n<p>Codigos de Respuesta: \"El email ya estaba en la lista negra global.\"</p>\n",
+        "auth": {
+          "type": "bearer",
+          "bearer": {
+            "token": "{{token}}"
+          },
+          "isInherited": true,
+          "source": {
+            "_postman_id": "99110cc3-0ac0-4a68-9db8-9803129a880a",
+            "id": "99110cc3-0ac0-4a68-9db8-9803129a880a",
+            "name": "Blacklist API",
+            "type": "collection"
+          }
+        },
+        "urlObject": {
+          "path": [
+            "blacklists"
+          ],
+          "host": [
+            "{{base_url}}"
+          ],
+          "query": [],
+          "variable": []
+        }
+      },
+      "response": [
+        {
+          "id": "5c409375-10d5-4460-a624-762c6d1d68d6",
+          "name": "Save as Example",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"clientel10891@ejemplo.com\",\r\n  \"app_uuid\": \"3f2b8c1e-5a4d-4e8b-9c1a-7d6e5f4a3b2c\",\r\n  \"blocked_reason\": \"Solicito no recibir correos\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/blacklists"
+          },
+          "status": "CONFLICT",
+          "code": 409,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "Werkzeug/3.1.9 Python/3.11.9"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 18 Oct 2026 01:15:26 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "66"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n    \"message\": \"El email ya estaba en la lista negra global.\"\n}"
+        }
+      ],
+      "_postman_id": "5d70a57e-2a6b-4f0a-900b-7c396a0dad4a"
+    },
+    {
+      "name": "Datos Invalidos 400",
+      "id": "8a49f2b3-e10f-4bde-8bcb-752cd9620a8c",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"nope\",\r\n  \"app_uuid\": \"123\",\r\n  \"blocked_reason\": \"Solicito no recibir correos\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{base_url}}/blacklists",
+        "description": "<p>Para ingreso de datos no validos por el formato.<br />Usa: StartFragment{ \"email\": \"nope\", \"app_uuid\": \"123\", \"blocked_reason\": \"Solicito no recibir correos\"}  </p>\n<p>Codigos de Respuesta: {<br />\"message\": \"No se pudo agregar el email a la lista negra.\",<br />\"errors\": {<br />\"email\": [<br />\"Not a valid email address.\"<br />],<br />\"app_uuid\": [<br />\"Not a valid UUID.\"<br />]<br />}<br />}<br />EndFragment</p>\n",
+        "auth": {
+          "type": "bearer",
+          "bearer": {
+            "token": "{{token}}"
+          },
+          "isInherited": true,
+          "source": {
+            "_postman_id": "99110cc3-0ac0-4a68-9db8-9803129a880a",
+            "id": "99110cc3-0ac0-4a68-9db8-9803129a880a",
+            "name": "Blacklist API",
+            "type": "collection"
+          }
+        },
+        "urlObject": {
+          "path": [
+            "blacklists"
+          ],
+          "host": [
+            "{{base_url}}"
+          ],
+          "query": [],
+          "variable": []
+        }
+      },
+      "response": [
+        {
+          "id": "9a95f097-d042-4c41-98a3-dcddb2c24d93",
+          "name": "Save as Example",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"nope\",\r\n  \"app_uuid\": \"123\",\r\n  \"blocked_reason\": \"Solicito no recibir correos\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/blacklists"
+          },
+          "status": "BAD REQUEST",
+          "code": 400,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "Werkzeug/3.1.9 Python/3.11.9"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 18 Oct 2026 01:15:33 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "225"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n    \"message\": \"No se pudo agregar el email a la lista negra.\",\n    \"errors\": {\n        \"email\": [\n            \"Not a valid email address.\"\n        ],\n        \"app_uuid\": [\n            \"Not a valid UUID.\"\n        ]\n    }\n}"
+        }
+      ],
+      "_postman_id": "8a49f2b3-e10f-4bde-8bcb-752cd9620a8c"
+    },
+    {
+      "name": "Sin Token 401",
+      "id": "d08f25c5-c95b-45d1-937c-91be8e20d01d",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth",
+          "isInherited": false
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"nope\",\r\n  \"app_uuid\": \"123\",\r\n  \"blocked_reason\": \"Solicito no recibir correos\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{base_url}}/blacklists",
+        "description": "<p>El no uso de una token para autorización.</p>\n<p>StartFragment Códigos de respuesta: \"Falta el token de autorizacion.\" .EndFragment</p>\n",
+        "urlObject": {
+          "path": [
+            "blacklists"
+          ],
+          "host": [
+            "{{base_url}}"
+          ],
+          "query": [],
+          "variable": []
+        }
+      },
+      "response": [
+        {
+          "id": "d9c9093f-5b3e-4e9f-90d6-0adbe74feaa1",
+          "name": "Save as Example",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"nope\",\r\n  \"app_uuid\": \"123\",\r\n  \"blocked_reason\": \"Solicito no recibir correos\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/blacklists"
+          },
+          "status": "UNAUTHORIZED",
+          "code": 401,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "Werkzeug/3.1.9 Python/3.11.9"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 18 Oct 2026 01:15:47 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "51"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n    \"message\": \"Falta el token de autorizacion.\"\n}"
+        }
+      ],
+      "_postman_id": "d08f25c5-c95b-45d1-937c-91be8e20d01d"
+    },
+    {
+      "name": "Consultar Email - Existe 200 OK (True)",
       "request": {
         "auth": {
           "type": "bearer",
           "bearer": [
             {
               "key": "token",
-              "value": "{{bearerToken}}",
+              "value": "{{token}}",
               "type": "string"
             }
           ]
@@ -67,16 +475,16 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/blacklists/usuario.bloqueado@ejemplo.com",
+          "raw": "{{base_url}}/blacklists/clientel10891@ejemplo.com",
           "host": [
-            "{{baseUrl}}"
+            "{{base_url}}"
           ],
           "path": [
             "blacklists",
-            "usuario.bloqueado@ejemplo.com"
+            "clientel10891@ejemplo.com"
           ]
         },
-        "description": "Caso exitoso (Happy path): consulta un email que sí está bloqueado en la base de datos."
+        "description": "Happy path: Consulta un correo que previamente fue registrado con éxito en la lista negra. Retorna is_blocked: true y el motivo."
       },
       "response": [
         {
@@ -85,13 +493,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/blacklists/usuario.bloqueado@ejemplo.com",
+              "raw": "{{base_url}}/blacklists/clientel10891@ejemplo.com",
               "host": [
-                "{{baseUrl}}"
+                "{{base_url}}"
               ],
               "path": [
                 "blacklists",
-                "usuario.bloqueado@ejemplo.com"
+                "clientel10891@ejemplo.com"
               ]
             }
           },
@@ -104,19 +512,19 @@
               "value": "application/json"
             }
           ],
-          "body": "{\"is_blocked\": true, \"blocked_reason\": \"Cliente solicito no recibir correos promocionales\"}"
+          "body": "{\n  \"is_blocked\": true,\n  \"blocked_reason\": \"Solicito no recibir correos\"\n}"
         }
       ]
     },
     {
-      "name": "3. Consultar Email - No Existe (200 OK - False)",
+      "name": "Consultar Email - No Existe 200 OK (False)",
       "request": {
         "auth": {
           "type": "bearer",
           "bearer": [
             {
               "key": "token",
-              "value": "{{bearerToken}}",
+              "value": "{{token}}",
               "type": "string"
             }
           ]
@@ -124,16 +532,16 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/blacklists/usuario.limpio@ejemplo.com",
+          "raw": "{{base_url}}/blacklists/usuario.limpio@ejemplo.com",
           "host": [
-            "{{baseUrl}}"
+            "{{base_url}}"
           ],
           "path": [
             "blacklists",
             "usuario.limpio@ejemplo.com"
           ]
         },
-        "description": "Caso exitoso: consulta un email que no está en la lista negra."
+        "description": "Happy path: Consulta un correo limpio que no se encuentra en la lista negra. Retorna is_blocked: false y motivo null."
       },
       "response": [
         {
@@ -142,9 +550,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/blacklists/usuario.limpio@ejemplo.com",
+              "raw": "{{base_url}}/blacklists/usuario.limpio@ejemplo.com",
               "host": [
-                "{{baseUrl}}"
+                "{{base_url}}"
               ],
               "path": [
                 "blacklists",
@@ -161,19 +569,19 @@
               "value": "application/json"
             }
           ],
-          "body": "{\"is_blocked\": false, \"blocked_reason\": null}"
+          "body": "{\n  \"is_blocked\": false,\n  \"blocked_reason\": null\n}"
         }
       ]
     },
     {
-      "name": "4. Consultar Email - Caso Borde Mayúsculas (200 OK - True)",
+      "name": "Consultar Email - Caso Borde Mayúsculas (200 OK)",
       "request": {
         "auth": {
           "type": "bearer",
           "bearer": [
             {
               "key": "token",
-              "value": "{{bearerToken}}",
+              "value": "{{token}}",
               "type": "string"
             }
           ]
@@ -181,16 +589,16 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/blacklists/USUARIO.BLOQUEADO@EJEMPLO.COM",
+          "raw": "{{base_url}}/blacklists/CLIENTEL10891@EJEMPLO.COM",
           "host": [
-            "{{baseUrl}}"
+            "{{base_url}}"
           ],
           "path": [
             "blacklists",
-            "USUARIO.BLOQUEADO@EJEMPLO.COM"
+            "CLIENTEL10891@EJEMPLO.COM"
           ]
         },
-        "description": "Caso de borde (Edge case): valida que las búsquedas sean case-insensitive normalizando a minúsculas."
+        "description": "Edge case: Valida que la búsqueda sea case-insensitive (normaliza a minúsculas) y encuentre el correo registrado."
       },
       "response": [
         {
@@ -199,13 +607,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/blacklists/USUARIO.BLOQUEADO@EJEMPLO.COM",
+              "raw": "{{base_url}}/blacklists/CLIENTEL10891@EJEMPLO.COM",
               "host": [
-                "{{baseUrl}}"
+                "{{base_url}}"
               ],
               "path": [
                 "blacklists",
-                "USUARIO.BLOQUEADO@EJEMPLO.COM"
+                "CLIENTEL10891@EJEMPLO.COM"
               ]
             }
           },
@@ -218,26 +626,29 @@
               "value": "application/json"
             }
           ],
-          "body": "{\"is_blocked\": true, \"blocked_reason\": \"Cliente solicito no recibir correos promocionales\"}"
+          "body": "{\n  \"is_blocked\": true,\n  \"blocked_reason\": \"Solicito no recibir correos\"\n}"
         }
       ]
     },
     {
-      "name": "5. Consultar Email - Sin Token (401 Unauthorized)",
+      "name": "Consultar Email - Sin Token (401 Unauthorized)",
       "request": {
+        "auth": {
+          "type": "noauth"
+        },
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/blacklists/usuario.bloqueado@ejemplo.com",
+          "raw": "{{base_url}}/blacklists/clientel10891@ejemplo.com",
           "host": [
-            "{{baseUrl}}"
+            "{{base_url}}"
           ],
           "path": [
             "blacklists",
-            "usuario.bloqueado@ejemplo.com"
+            "clientel10891@ejemplo.com"
           ]
         },
-        "description": "Caso de seguridad negativo: petición sin encabezado Authorization."
+        "description": "Security negative case: Petición sin el encabezado Authorization. Valida que el endpoint GET esté protegido por JWT."
       },
       "response": [
         {
@@ -246,13 +657,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/blacklists/usuario.bloqueado@ejemplo.com",
+              "raw": "{{base_url}}/blacklists/clientel10891@ejemplo.com",
               "host": [
-                "{{baseUrl}}"
+                "{{base_url}}"
               ],
               "path": [
                 "blacklists",
-                "usuario.bloqueado@ejemplo.com"
+                "clientel10891@ejemplo.com"
               ]
             }
           },
@@ -265,19 +676,19 @@
               "value": "application/json"
             }
           ],
-          "body": "{\"message\": \"Falta el token de autorizacion.\"}"
+          "body": "{\n  \"message\": \"Falta el token de autorizacion.\"\n}"
         }
       ]
     },
     {
-      "name": "6. Consultar Email - Token Inválido (401 Unauthorized)",
+      "name": "Consultar Email - Token Inválido (401 Unauthorized)",
       "request": {
         "auth": {
           "type": "bearer",
           "bearer": [
             {
               "key": "token",
-              "value": "token_invalido_12345",
+              "value": "token_invalido_xyz",
               "type": "string"
             }
           ]
@@ -285,16 +696,16 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/blacklists/usuario.bloqueado@ejemplo.com",
+          "raw": "{{base_url}}/blacklists/clientel10891@ejemplo.com",
           "host": [
-            "{{baseUrl}}"
+            "{{base_url}}"
           ],
           "path": [
             "blacklists",
-            "usuario.bloqueado@ejemplo.com"
+            "clientel10891@ejemplo.com"
           ]
         },
-        "description": "Caso de seguridad negativo: petición con token malformado o firma incorrecta."
+        "description": "Security negative case: Petición con un token alterado o con firma incorrecta."
       },
       "response": [
         {
@@ -303,13 +714,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/blacklists/usuario.bloqueado@ejemplo.com",
+              "raw": "{{base_url}}/blacklists/clientel10891@ejemplo.com",
               "host": [
-                "{{baseUrl}}"
+                "{{base_url}}"
               ],
               "path": [
                 "blacklists",
-                "usuario.bloqueado@ejemplo.com"
+                "clientel10891@ejemplo.com"
               ]
             }
           },
@@ -322,7 +733,7 @@
               "value": "application/json"
             }
           ],
-          "body": "{\"message\": \"Token invalido.\"}"
+          "body": "{\n  \"message\": \"Token invalido.\"\n}"
         }
       ]
     }

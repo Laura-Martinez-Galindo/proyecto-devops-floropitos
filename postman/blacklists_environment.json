@@ -1,11 +1,23 @@
 {
-  "id": "d7f35b2e-9841-45a2-9b21-817e9f3b1402",
-  "name": "DevOps - Floropitos Environment",
+  "id": "30774473-1bc37605-0342-415b-a1f2-e30c51be4986",
+  "name": "Floropitos - Blacklist API Environment",
   "values": [
     {
-      "key": "baseUrl",
-      "value": "http://127.0.0.1:5000",
+      "key": "base_url",
+      "value": "http://floropitos-blacklist.us-east-1.elasticbeanstalk.com",
       "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "baseUrl",
+      "value": "http://floropitos-blacklist.us-east-1.elasticbeanstalk.com",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "token",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc5MTkxMjA2MSwianRpIjoiNjQyNjZiMTgtNDE5OS00YTVjLWIxZGEtZmU0ODU5NWE1YTZkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImJsYWNrbGlzdC1jbGllbnQiLCJuYmYiOjE3OTE5MTIwNjEsImNzcmYiOiI1OWFmNDkzNS00NDE1LTRlYjQtYmRlYy0xMjZmMjNlOGYxMTcifQ.YhAEB6g47YFiLrHTVDZtQMKFzrztJp-oNNvVH1NrHWc",
+      "type": "secret",
       "enabled": true
     },
     {
