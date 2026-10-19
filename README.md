@@ -74,11 +74,11 @@ Respuesta si no está en la lista (`200 OK`):
 
 En la carpeta `postman/` se encuentran la colección y el environment listos para importar:
 * `blacklists_collection.json`: Casos de prueba para todos los endpoints (éxitos, 400, 401, 409).
-* `blacklists_environment.json`: Variables `baseUrl` y `bearerToken`.
+* `blacklists_environment.json`: Variables `base_url` y `token`.
 
 ## Despliegue
 
 Subir el contenido de la carpeta como zip a Beanstalk, con `application.py` en la raiz del zip. Configurar `/health` como ruta del health check.
 
 
-token de momento: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc5MTkxMjA2MSwianRpIjoiNjQyNjZiMTgtNDE5OS00YTVjLWIxZGEtZmU0ODU5NWE1YTZkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImJsYWNrbGlzdC1jbGllbnQiLCJuYmYiOjE3OTE5MTIwNjEsImNzcmYiOiI1OWFmNDkzNS00NDE1LTRlYjQtYmRlYy0xMjZmMjNlOGYxMTcifQ.YhAEB6g47YFiLrHTVDZtQMKFzrztJp-oNNvVH1NrHWc
+token de momento: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc5MTkxMjA2MSwianRpIjoiNjQyNjZiMTgtNDE5OS00YTVjLWIxZGEtZmU0ODU5NWE1YTZkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImJsYWNrbGlzdC1jbGllbnQiLCJuYmYiOjE3OTE5MTIwNjEsImNzcmYiOiI1OWFmNDkzNS00NDE1LTRlYjQtYmRlYy0xMjZmMjNlOGYxMTcifQ.G-dlhkUg2SvnF5XUCLl9z8N1eTODw7Mi8xnjbhWV87A
